@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papo Mágico - Analisando Pagamento</title>
+  <style>
+    body { 
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #222;
+    }
+
+    h1 { 
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    p { 
+      font-size: 18px;
+      margin: 8px 20px;
+    }
+
+    /* Estilos para o container de carregamento */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px; /* Espaçamento da parte de cima */
+      min-height: 100px; /* Garante um espaço mínimo vertical */
+    }
+
+    /* Estilos para o spinner de carregamento */
+    .spinner {
+      border: 6px solid #f3f3f3; /* Cor da parte de trás do spinner (cinza claro) */
+      border-top: 6px solid #4CAF50; /* Cor da parte que "carrega" (verde) */
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite; /* Animação de rotação */
+      margin-bottom: 15px; /* Espaçamento entre o spinner e a mensagem */
+    }
+
+    /* Animação para o spinner */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Estilo da mensagem de status */
+    .status-message { 
+      color: #222; /* Cor padrão do texto */
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0; /* Remove margem padrão de p */
+    }
+    
+    /* Estilo para a mensagem que confirma o pagamento/redirecionamento */
+    .status-message.highlight {
+        color: #4CAF50; /* Verde */
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    /* REMOVIDO: Os estilos do botão não são mais necessários */
+    /*
+    .button { ... }
+    .button:hover { ... }
+    */
+  </style>
+  
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s) {
+      if(f.fbq)return;n=f.fbq=function(){
+        n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+      };
+      if(!f._fbq)f._fbq=n;
+      n.push=n; n.loaded=!0; n.version='2.0';
+      n.queue=[]; t=b.createElement(e); t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window, document,'script');
+    
+    // ATENÇÃO: SUBSTITUA 'SEU_PIXEL_ID_AQUI' PELO SEU ID REAL DO FACEBOOK PIXEL
+    fbq('init', 'SEU_PIXEL_ID_AQUI'); 
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    <!-- ATENÇÃO: SUBSTITUA 'SEU_PIXEL_ID_AQUI' PELO SEU ID REAL DO FACEBOOK PIXEL -->
+    src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- Fim do Pixel -->
+</head>
+<body>
+
+  <h1>Pagamento confirmado!</h1>
+  <p>Recebemos seu pagamento com sucesso.</p>
+
+  <!-- NOVA SEÇÃO: Análise de Pagamento Pix e Carregamento -->
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p id="pix-status-message" class="status-message highlight">Analisando o pagamento do Pix...</p>
+  </div>
+  <!-- FIM DA NOVA SEÇÃO -->
+
+  <!-- As tags <p> e <a> do botão "Acessar Agora" foram removidas daqui, pois são substituídas pela nova seção de carregamento. -->
+
+  <script>
+    // ATENÇÃO: SUBSTITUA 'SEU_PIXEL_ID_AQUI' PELO SEU ID REAL DO FACEBOOK PIXEL NO HEAD E NO NOSCRIPT TAMBÉM.
+    // Dispara o evento de compra do Facebook Pixel.
+    // Este evento é disparado assim que a página carrega, antes mesmo do redirecionamento.
+    fbq('track', 'Purchase', { 
+      value: 10.00, // Valor da compra (R$ 10,00)
+      currency: 'BRL' // Moeda (Real Brasileiro)
+    });
+    
+    // Pega a referência para o elemento da mensagem de status
+    const pixStatusMessage = document.getElementById('pix-status-message');
+
+	// Redireciona após 4 segundos
+    setTimeout(() => { 
+      // Antes de redirecionar, atualiza a mensagem para indicar que o pagamento foi confirmado
+      if (pixStatusMessage) { // Verifica se o elemento existe
+        pixStatusMessage.textContent = 'Pagamento Pix confirmado! Redirecionando...';
+        // Opcional: Se quiser remover o spinner neste ponto:
+        // document.querySelector('.spinner').style.display = 'none'; 
+      }
+      window.location.href = "https://mistico-whats-magic.lovable.app/chapter-2";
+    }, 4000); // 4000 milissegundos = 4 segundos
+  </script>
+
+</body>
+</html>
