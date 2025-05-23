@@ -1,0 +1,96 @@
+html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papo Mágico - Redirecionamento</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 10px 20px;
+    }
+
+    .pix {
+      background: #f2f2f2;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 20px 0;
+    }
+
+    .message {
+      color: #4CAF50;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 28px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+	  border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Obrigado pela sua compra!</h1>
+  <p>Seu pagamento foi processado com sucesso via Pix.</p>
+  <div class="pix">Chave Pix: <strong>212838383883</strong></div>
+  <p>Você será redirecionado automaticamente para o acesso ao conteúdo.</p>
+
+  <a href="https://suaurl.com" class="button">Acessar Agora</a>
+
+  <div class="message">Liberando seu acesso ao <strong>Papo Mágico</strong>...</div>
+
+  <script>
+    const pixCode = "212838383883";
+    const purchaseAmount = 10;
+
+    function trackPurchase() {
+      console.log(`Compra de R
+    
+{purchaseAmount} com Pix: ${pixCode}`);
+      // Aqui você pode inserir seu pixel real ou gtag
+      // fbq('track', 'Purchase', {value: purchaseAmount, currency: 'BRL'});
+    }
+
+    setTimeout(function() {
+      trackPurchase();
+      window.location.href = "https://mistico-whats-magic.lovable.app/chapter-2"; // Troque pela sua URL real
+    }, 4000); // Redireciona após 4 segundos
+  </script>
+
+</body>
+</html>
